@@ -10,6 +10,7 @@ import React, {useState} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
 
 import InputComponent from '../Input';
+import fetchGithubAPI from '../../lib/apiClient';
 
 const HomeComponent = () => {
   const [state, setState] = useState({
@@ -19,13 +20,17 @@ const HomeComponent = () => {
 
   const handleChange = (newValue, name) => {
     setState(prevState => {
-      console.log({prevState});
       return {
         ...prevState, // spread
         [name]: newValue,
       };
     });
   };
+
+  const handleButtonPress = async () => {
+    const data = await fetchGithubAPI(state.owner, state.repository)
+    console.log({ data })
+  }
 
   return (
     <View>
@@ -43,7 +48,11 @@ const HomeComponent = () => {
           handleChange={handleChange}
         />
       </View>
-      <Button title="Submit" disabled={!state.owner || !state.repository} />
+      <Button
+        title="Submit"
+        onPress={handleButtonPress}
+        disabled={!state.owner || !state.repository}
+      />
     </View>
   );
 };
