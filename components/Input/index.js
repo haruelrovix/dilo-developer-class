@@ -1,4 +1,3 @@
-
 /**
  * Input component
  *
@@ -6,12 +5,12 @@
  */
 
 import React from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import {StyleSheet, TextInput} from 'react-native';
 
-const InputComponent = (props) => {
+const InputComponent = props => {
   const onChangeText = newValue => {
-    props.handleChange(newValue, props.name)
-  }
+    props.handleChange(newValue, props.name);
+  };
 
   return (
     <TextInput
@@ -22,14 +21,14 @@ const InputComponent = (props) => {
       name={props.name}
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   textInput: {
     height: 40,
     borderColor: 'gray',
-    borderWidth: 1
-  }
-})
+    borderWidth: 1,
+  },
+});
 
-export default InputComponent
+export default InputComponent;

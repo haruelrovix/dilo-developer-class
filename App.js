@@ -16,11 +16,8 @@ import {
   StatusBar,
 } from 'react-native';
 
-import {
-  Header,
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
-import HomeComponent from './components/Home'
+import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
+import HomeComponent from './components/Home';
 
 const App: () => React$Node = () => {
   return (
