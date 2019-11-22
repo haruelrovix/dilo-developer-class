@@ -28,9 +28,9 @@ const HomeComponent = () => {
   };
 
   const handleButtonPress = async () => {
-    const data = await fetchGithubAPI(state.owner, state.repository)
-    console.log({ data })
-  }
+    const data = await fetchGithubAPI(state.owner, state.repository);
+    console.log({data});
+  };
 
   return (
     <View>
