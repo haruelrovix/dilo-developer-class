@@ -8,11 +8,12 @@
 
 import React, {useState} from 'react';
 import {Button, StyleSheet, View} from 'react-native';
+import {withRouter} from 'react-router';
 
 import InputComponent from '../Input';
 import fetchGithubAPI from '../../lib/apiClient';
 
-const HomeComponent = () => {
+const HomeComponent = (props) => {
   const [state, setState] = useState({
     owner: '',
     repository: '',
@@ -30,6 +31,14 @@ const HomeComponent = () => {
   const handleButtonPress = async () => {
     const data = await fetchGithubAPI(state.owner, state.repository);
     console.log({data});
+
+    props.history.push({
+      pathname: '/commits',
+      state: {
+        owner: state.owner,
+        repository: state.repository
+      }
+    })
   };
 
   return (
@@ -63,4 +72,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeComponent;
+export default withRouter(HomeComponent);
