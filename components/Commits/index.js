@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 
+import withHeader from '../../HOCs/withHeader';
+
 class Commits extends Component {
   render() {
     return (
@@ -11,4 +13,4 @@ class Commits extends Component {
   }
 }
 
-export default Commits;
+export default withHeader({title: 'Commits'})(Commits);
