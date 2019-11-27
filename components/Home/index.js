@@ -13,7 +13,7 @@ import {withRouter} from 'react-router';
 import InputComponent from '../Input';
 import fetchGithubAPI from '../../lib/apiClient';
 
-const HomeComponent = (props) => {
+const HomeComponent = props => {
   const [state, setState] = useState({
     owner: '',
     repository: '',
@@ -29,16 +29,17 @@ const HomeComponent = (props) => {
   };
 
   const handleButtonPress = async () => {
-    const data = await fetchGithubAPI(state.owner, state.repository);
+    const {owner, repository} = state;
+    const data = await fetchGithubAPI(owner, repository);
     console.log({data});
 
     props.history.push({
       pathname: '/commits',
       state: {
-        owner: state.owner,
-        repository: state.repository
-      }
-    })
+        owner,
+        repository,
+      },
+    });
   };
 
   return (
