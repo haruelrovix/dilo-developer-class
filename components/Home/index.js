@@ -11,7 +11,6 @@ import {Button, StyleSheet, View} from 'react-native';
 import {withRouter} from 'react-router';
 
 import InputComponent from '../Input';
-import fetchGithubAPI from '../../lib/apiClient';
 
 const HomeComponent = props => {
   const [state, setState] = useState({
@@ -30,8 +29,6 @@ const HomeComponent = props => {
 
   const handleButtonPress = async () => {
     const {owner, repository} = state;
-    const data = await fetchGithubAPI(owner, repository);
-    console.log({data});
 
     props.history.push({
       pathname: '/commits',
