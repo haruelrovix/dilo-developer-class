@@ -1,23 +1,22 @@
 import React, {PureComponent} from 'react';
-import {SafeAreaView, TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Platform} from 'react-native';
 import {Header} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const wrapperStyle = {
-  alignItems: 'center',
-  backgroundColor: '#fff',
-  display: 'flex',
-  flex: 1,
-  height: '100%',
-};
-
 const containerStyle = {
   alignItems: 'center',
-  height: 50,
+  height: Platform.select({ios: 80, android: 60}),
   justifyContent: 'center',
-  paddingHorizontal: 0,
-  width: '100%',
 };
+
+const buttonStyle = {
+  alignItems: 'center',
+  justifyContent: 'center',
+  paddingRight: 5,
+  width: 40,
+};
+
+const textStyle = {color: '#fff'};
 
 const centerContainerStyle = {paddingRight: 20};
 
@@ -26,33 +25,29 @@ const withHeader = ({title = ''}) => WrappedComponent => {
     goHome = () => this.props.history.replace('/');
     goBack = () => this.props.history.goBack();
 
-    leftRightComponent = (name, size, onPress) => (
-      <TouchableOpacity onPress={onPress}>
+    renderIcon = (name, size, onPress) => (
+      <TouchableOpacity onPress={onPress} style={buttonStyle}>
         <Icon name={name} size={size} color="#fff" />
       </TouchableOpacity>
     );
 
-    centerComponent = title => ({
+    centerComponent = () => ({
       text: title.toUpperCase(),
-      style: {color: '#fff'},
+      style: textStyle,
     });
 
     render() {
       return (
-        <SafeAreaView style={wrapperStyle}>
+        <>
           <Header
             containerStyle={containerStyle}
             centerContainerStyle={centerContainerStyle}
-            leftComponent={this.leftRightComponent(
-              'chevron-left',
-              20,
-              this.goBack,
-            )}
-            centerComponent={this.centerComponent(title)}
-            rightComponent={this.leftRightComponent('home', 25, this.goHome)}
+            leftComponent={this.renderIcon('chevron-left', 20, this.goBack)}
+            centerComponent={this.centerComponent()}
+            rightComponent={this.renderIcon('home', 25, this.goHome)}
           />
           <WrappedComponent />
-        </SafeAreaView>
+        </>
       );
     }
   }
