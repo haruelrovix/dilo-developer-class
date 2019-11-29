@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
-import {Text, View, ActivityIndicator,StyleSheet} from 'react-native';
+import {Text, View, ActivityIndicator, StyleSheet} from 'react-native';
 import {withRouter} from 'react-router';
 
 import withHeader from '../../HOCs/withHeader';
 import fetchGithubAPI from '../../lib/apiClient';
+import CommitList from './CommitList';
 
 class Commits extends Component {
   state = {
     loading: false,
-    data: null
-  }
+    data: null,
+  };
 
   async componentDidMount() {
-    this.setState({ loading: true });
+    this.setState({loading: true});
 
     const {
       location: {
@@ -22,16 +23,16 @@ class Commits extends Component {
     const data = await fetchGithubAPI(owner, repository);
     console.log({data});
 
-    this.setState({ loading: false, data });
+    this.setState({loading: false, data});
   }
 
   render() {
-    const { loading, data } = this.state;
+    const {loading, data} = this.state;
 
     return (
       <View style={styles.container}>
-        {loading && <ActivityIndicator size='large' />}
-        {data && !data.message && <Text>I'm Commits component</Text>}
+        {loading && <ActivityIndicator size="large" />}
+        {data && !data.message && <CommitList commits={data} />}
         {data && data.message && <Text>{data.message}</Text>}
       </View>
     );
@@ -42,8 +43,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
+    justifyContent: 'center',
+  },
+});
 
 export default withHeader({title: 'Commits'})(withRouter(Commits));
