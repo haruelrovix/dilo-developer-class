@@ -29,6 +29,7 @@ const CommitList = props => {
         subtitle={item.commit.message}
         leftElement={renderAvatar(item)}
         containerStyle={style.containerStyle}
+        subtitleStyle={style.subtitleStyle}
       />
     );
   };
