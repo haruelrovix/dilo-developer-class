@@ -8,10 +8,16 @@ const CommitList = props => {
 
   const renderAvatar = item => {
     const uri = (item.author && item.author.avatar_url) || undefined;
+    const initials = item.commit.author.name.match(/\b\w/g) || [];
 
     return (
       <View>
-        <Avatar source={{uri}} size="medium" rounded />
+        <Avatar
+          title={(initials.shift() || '') + (initials.pop() || '')}
+          source={{uri}}
+          size="medium"
+          rounded
+        />
       </View>
     );
   };
